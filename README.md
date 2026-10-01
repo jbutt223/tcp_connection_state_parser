@@ -35,3 +35,10 @@ The trade-off: addresses are returned in their raw hex form (`0100007F`), not co
 - `parse_tcp_file(path)` — convenience wrapper that opens the file for you.
 - `ConnectionRecord` — frozen dataclass with: `local_address`, `local_port`, `remote_address`, `remote_port`, `state`, `tx_queue`, `rx_queue`, `uid`, `inode`, `timer_type`, `timer_expires_jiffies`, `raw_state`.
 - `TcpState` — `IntEnum` with members `ESTABLISHED`, `SYN_SENT`, `SYN_RECV`, `FIN_WAIT1`, `FIN_WAIT2`, `TIME_WAIT`, `CLOSE`, `CLOSE_WAIT`, `LAST_ACK`, `LISTEN`, `CLOSING`, `NEW_SYN_RECV`.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
