@@ -1,6 +1,6 @@
 [project]
 name = "tcp-connection-state-parser"
-version = "0.1.1"
+version = "0.1.2"
 description = "Parse /proc/net/tcp and /proc/net/tcp6 into structured records with decoded state names and timers."
 requires-python = ">=3.10"
 dependencies = []
